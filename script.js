@@ -83,18 +83,11 @@ document.querySelectorAll("[data-job]").forEach((button) => {
 
 if (document.body.dataset.page === "contact" && formMessage) {
   const params = new URLSearchParams(window.location.search);
+  const submitted = params.get("submitted");
   const job = params.get("career");
-  if (job) {
-    formMessage.textContent = `Career enquiry selected: ${job}. Please add your contact details in the form.`;
+  if (submitted === "1") {
+    formMessage.textContent = "Thank you. Your enquiry has been submitted to Paresh Founders and Engineers.";
+  } else if (job) {
+    formMessage.textContent = "Career enquiry selected: " + job + ". Please add your contact details in the form.";
   }
 }
-
-enquiryForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const data = new FormData(enquiryForm);
-  const name = data.get("name");
-  const requirement = data.get("requirement");
-  const contact = data.get("contact");
-  formMessage.textContent = `Enquiry prepared for ${name}: ${requirement}. Reply contact: ${contact}. Please email drawings to sales@pareshfounders.com.`;
-  enquiryForm.reset();
-});
